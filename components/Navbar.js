@@ -47,7 +47,7 @@ export default function Navbar() {
               aria-expanded={moreOpen}
               onClick={() => setMoreOpen(!moreOpen)}
             >
-              Jelajah <span aria-hidden="true">⌄</span>
+              Jelajah <span className="menu-chevron" aria-hidden="true">⌄</span>
             </button>
             <div className="menu-more-list">
               {secondaryMenu.map((m) => (

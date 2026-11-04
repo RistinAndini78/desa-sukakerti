@@ -39,12 +39,13 @@ a { color: var(--forest-2); }
 .mono { display: grid; place-items: center; width: 44px; height: 44px; background: var(--forest); color: var(--bamboo); font-weight: 700; letter-spacing: .04em; border-radius: 10px 10px 16px 16px; box-shadow: 0 5px 12px rgba(30,59,44,.16); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-text small { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: .75rem; color: var(--muted); }
-.menu { display: flex; gap: .2rem; }
-.menu a { padding: .55rem .8rem; text-decoration: none; color: var(--ink); font-weight: 600; font-size: .9rem; border-radius: 8px; transition: background .2s, color .2s; }
+.menu { display: flex; align-items: center; gap: .35rem; }
+.menu a { display: inline-flex; align-items: center; min-height: 42px; padding: .55rem .85rem; text-decoration: none; color: var(--ink); font-weight: 600; font-size: .9rem; line-height: 1; border-radius: 8px; transition: background .2s, color .2s; }
 .menu a:hover { background: var(--mist); }
 .menu a.active { background: var(--forest); color: #fff; box-shadow: 0 4px 10px rgba(30,59,44,.16); }
 .menu-more { position: relative; }
-.menu-more-toggle { padding: .55rem .8rem; border: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 600; font-size: .9rem; border-radius: 8px; cursor: pointer; }
+.menu-more-toggle { display: inline-flex; align-items: center; gap: .45rem; min-height: 42px; padding: .55rem .85rem; border: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 600; font-size: .9rem; line-height: 1; border-radius: 8px; cursor: pointer; }
+.menu-chevron { position: relative; top: -1px; font-size: .85rem; line-height: 1; }
 .menu-more-toggle:hover, .menu-more.open .menu-more-toggle { background: var(--mist); }
 .menu-more-list { display: none; position: absolute; top: calc(100% + .55rem); right: 0; min-width: 190px; padding: .45rem; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 25px rgba(30,59,44,.13); }
 .menu-more.open .menu-more-list { display: grid; }
@@ -55,8 +56,8 @@ a { color: var(--forest-2); }
   .nav-toggle { display: block; }
   .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--paper); border-bottom: 1px solid var(--line); padding: .5rem 4%; }
   .menu.open { display: flex; }
-  .menu a { padding: .8rem .5rem; }
-  .menu-more-toggle { width: 100%; padding: .8rem .5rem; text-align: left; }
+  .menu a { min-height: 44px; padding: .8rem .5rem; }
+  .menu-more-toggle { width: 100%; min-height: 44px; padding: .8rem .5rem; text-align: left; }
   .menu-more-list { position: static; min-width: 0; border: 0; box-shadow: none; background: var(--mist); margin: 0 .5rem .4rem; }
   .admin-link { text-align: center; margin-top: .3rem; }
 }
