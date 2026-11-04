@@ -22,6 +22,9 @@ export default function AdminDashboard() {
     vision: defaultVisi,
   });
   const [saveStatus, setSaveStatus] = useState(null);
+  const [contentRows, setContentRows] = useState([]);
+  const [crudForm, setCrudForm] = useState({ key: "", value: "{}" });
+  const [editingKey, setEditingKey] = useState(null);
   const [status, setStatus] = useState({ loading: true, error: "" });
 
   useEffect(() => {
@@ -60,6 +63,7 @@ export default function AdminDashboard() {
           if (contentError) {
             setSaveStatus({ ok: false, teks: `Konten bawaan digunakan: ${contentError.message}` });
           } else if (savedContent?.length) {
+            setContentRows(savedContent);
             setContent((currentContent) => savedContent.reduce((next, item) => ({
               ...next,
               [item.key]: item.value,
@@ -96,9 +100,61 @@ export default function AdminDashboard() {
       }));
       const { error } = await supabase.from("site_content").upsert(rows);
       if (error) throw error;
+      setContentRows(rows.map(({ key, value }) => ({ key, value })));
       setSaveStatus({ ok: true, teks: "Perubahan berhasil disimpan." });
     } catch (error) {
       setSaveStatus({ ok: false, teks: error.message });
+    }
+
+    function mulaiEdit(row) {
+      setEditingKey(row.key);
+      setCrudForm({ key: row.key, value: JSON.stringify(row.value, null, 2) });
+    }
+
+    function batalEdit() {
+      setEditingKey(null);
+      setCrudForm({ key: "", value: "{}" });
+    }
+
+    async function simpanCrud(event) {
+      event.preventDefault();
+      setSaveStatus(null);
+      try {
+        const key = crudForm.key.trim();
+        if (!key) throw new Error("Key konten wajib diisi.");
+        const value = JSON.parse(crudForm.value);
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("site_content")
+          .upsert({ key, value, updated_by: user.id }, { onConflict: "key" })
+          .select("key, value")
+          .single();
+        if (error) throw error;
+        setContentRows((rows) => [
+          ...rows.filter((row) => row.key !== key && row.key !== editingKey),
+          data,
+        ]);
+        if (key === "site_summary" || key === "stats" || key === "vision") {
+          setContent((current) => ({ ...current, [key]: value }));
+        }
+        setSaveStatus({ ok: true, teks: "Data konten berhasil disimpan." });
+        batalEdit();
+      } catch (error) {
+        setSaveStatus({ ok: false, teks: `Gagal menyimpan: ${error.message}` });
+      }
+    }
+
+    async function hapusCrud(key) {
+      if (!window.confirm(`Hapus konten "${key}"?`)) return;
+      setSaveStatus(null);
+      try {
+        const { error } = await createClient().from("site_content").delete().eq("key", key);
+        if (error) throw error;
+        setContentRows((rows) => rows.filter((row) => row.key !== key));
+        setSaveStatus({ ok: true, teks: "Data konten berhasil dihapus." });
+      } catch (error) {
+        setSaveStatus({ ok: false, teks: `Gagal menghapus: ${error.message}` });
+      }
     }
   }
 
@@ -183,6 +239,54 @@ export default function AdminDashboard() {
         </div>
         {saveStatus && <p role="status" className={saveStatus.ok ? "note ok" : "note err"}>{saveStatus.teks}</p>}
       </form>
+      <section className="admin-editor admin-crud">
+        <div className="admin-editor-heading">
+          <div>
+            <span className="pill">CRUD konten</span>
+            <h2>Kelola data tersimpan</h2>
+          </div>
+        </div>
+        <form className="crud-form" onSubmit={simpanCrud}>
+          <label>
+            Key konten
+            <input
+              value={crudForm.key}
+              onChange={(event) => setCrudForm({ ...crudForm, key: event.target.value })}
+              disabled={Boolean(editingKey)}
+              placeholder="contoh: pengumuman"
+              required
+            />
+          </label>
+          <label>
+            Nilai JSON
+            <textarea
+              rows={5}
+              value={crudForm.value}
+              onChange={(event) => setCrudForm({ ...crudForm, value: event.target.value })}
+              required
+            />
+          </label>
+          <div className="crud-actions">
+            <button className="btn" type="submit">{editingKey ? "Perbarui data" : "Tambah data"}</button>
+            {editingKey && <button className="btn ghost" type="button" onClick={batalEdit}>Batal</button>}
+          </div>
+        </form>
+        <div className="crud-list">
+          {contentRows.map((row) => (
+            <article className="crud-row" key={row.key}>
+              <div>
+                <strong>{row.key}</strong>
+                <pre>{JSON.stringify(row.value, null, 2)}</pre>
+              </div>
+              <div className="crud-actions">
+                <button className="btn ghost" type="button" onClick={() => mulaiEdit(row)}>Edit</button>
+                <button className="btn danger" type="button" onClick={() => hapusCrud(row.key)}>Hapus</button>
+              </div>
+            </article>
+          ))}
+          {!contentRows.length && <p className="admin-muted">Belum ada data konten tersimpan.</p>}
+        </div>
+      </section>
     </section>
   );
 }

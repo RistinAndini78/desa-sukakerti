@@ -69,7 +69,6 @@ export default function Navbar() {
               {pathname !== "/admin" && (
                 <Link href="/admin" onClick={() => setOpen(false)}>Dashboard</Link>
               )}
-              <Link href="/" className="admin-nav-public" onClick={() => setOpen(false)}>Lihat situs</Link>
               {adminUser && pathname === "/admin" && (
                 <button type="button" className="logout-link" onClick={keluar}>Keluar</button>
               )}
