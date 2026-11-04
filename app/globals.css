@@ -59,6 +59,8 @@ a { color: var(--forest-2); }
 .menu-more.open .menu-more-list { display: grid; }
 .menu-more-list a { display: block; padding: .6rem .7rem; }
 .admin-link { background: var(--aren) !important; color: #fff !important; box-shadow: 0 4px 10px rgba(168,100,31,.18); }
+.admin-nav-label { color: var(--forest-2); font-size: .85rem; font-weight: 700; padding: .55rem .7rem; border-right: 1px solid var(--line); }
+.admin-nav-public { border: 1px solid var(--line); }
 .nav-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .9rem; font: inherit; font-weight: 700; color: var(--forest); }
 @media (max-width: 900px) {
   .institution-logos { margin-right: .2rem; }
@@ -71,6 +73,7 @@ a { color: var(--forest-2); }
   .menu-more-toggle { width: 100%; min-height: 44px; padding: .8rem .5rem; text-align: left; }
   .menu-more-list { position: static; min-width: 0; border: 0; box-shadow: none; background: var(--mist); margin: 0 .5rem .4rem; }
   .admin-link { text-align: center; margin-top: .3rem; }
+  .admin-nav-label { border-right: 0; border-bottom: 1px solid var(--line); width: 100%; }
 }
 @media (max-width: 520px) {
   .nav-in { gap: .45rem; }

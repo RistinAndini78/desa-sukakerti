@@ -7,6 +7,7 @@ import { menu } from "@/lib/data";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const isAdminArea = pathname.startsWith("/admin");
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const primaryMenu = menu.filter((item) => ["/", "/profil", "/potensi"].includes(item.href));
@@ -32,7 +33,17 @@ export default function Navbar() {
         >
           {open ? "Tutup" : "Menu"}
         </button>
-        <nav id="menu-utama" className={"menu" + (open ? " open" : "")} aria-label="Menu utama">
+        <nav id="menu-utama" className={"menu" + (open ? " open" : "")} aria-label={isAdminArea ? "Menu admin" : "Menu utama"}>
+          {isAdminArea ? (
+            <>
+              <span className="admin-nav-label">Area Pengelola</span>
+              {pathname !== "/admin" && (
+                <Link href="/admin" onClick={() => setOpen(false)}>Dashboard</Link>
+              )}
+              <Link href="/" className="admin-nav-public" onClick={() => setOpen(false)}>Lihat situs</Link>
+            </>
+          ) : (
+            <>
           {primaryMenu.map((m) => (
             <Link
               key={m.href}
@@ -70,6 +81,8 @@ export default function Navbar() {
           <Link href="/admin/login" className="admin-link" onClick={() => setOpen(false)}>
             Admin
           </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
