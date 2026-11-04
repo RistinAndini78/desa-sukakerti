@@ -286,10 +286,7 @@ a { color: var(--forest-2); }
 .footer ul { list-style: none; padding: 0; margin: 0; }
 .footer li { margin-bottom: .3rem; }
 .brand-foot { color: #fff; margin-bottom: .8rem; }
-.brand-foot .mono { background: var(--bamboo); color: var(--ijuk); }
-.footer-logos { display: flex; align-items: center; gap: .6rem; margin: .2rem 0 1rem; }
-.footer-logos img { width: auto; height: 58px; object-fit: contain; }
-.footer-logos img:first-child { height: 52px; }
+.brand-foot-logo { width: 52px; height: 52px; object-fit: contain; }
 .foot-bottom { margin-top: 2rem; padding: 1.2rem 0; border-top: 1px solid #44392c; font-size: .9rem; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

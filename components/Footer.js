@@ -13,12 +13,8 @@ export default function Footer() {
       <div className="container foot-grid">
         <div>
           <div className="brand brand-foot">
-            <span className="mono" aria-hidden="true">SK</span>
+            <Image className="brand-foot-logo" src="/logo-kelompok.png" alt="Logo kelompok" width={52} height={52} />
             <span className="brand-text">Desa Sukakerti</span>
-          </div>
-          <div className="footer-logos" aria-label="Logo pendukung">
-            <Image src="/logo-subang.png" alt="Logo Kabupaten Subang" width={58} height={70} />
-            <Image src="/logo-kelompok.png" alt="Logo kelompok" width={70} height={70} />
           </div>
           <p>Sistem Informasi Pemerintahan &amp; Pelayanan Desa. Kecamatan Cisalak, Kabupaten Subang, Jawa Barat.</p>
         </div>
