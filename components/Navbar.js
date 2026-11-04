@@ -19,7 +19,6 @@ export default function Navbar() {
           <Image src="/logo-kelompok.png" alt="Logo kelompok" width={64} height={64} />
         </div>
         <Link href="/" className="brand" onClick={() => setOpen(false)}>
-          <span className="mono" aria-hidden="true">SK</span>
           <span className="brand-text">
             Desa Sukakerti
             <small>Cisalak, Subang</small>

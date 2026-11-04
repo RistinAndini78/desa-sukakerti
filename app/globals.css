@@ -37,15 +37,16 @@ a { color: var(--forest-2); }
 
 /* nav */
 .nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid rgba(211,220,205,.7); box-shadow: 0 4px 18px rgba(30,59,44,.05); }
-.nav-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+.nav-in { display: flex; align-items: center; gap: .75rem; min-height: 76px; }
 .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--forest); font-family: "Poppins", system-ui, sans-serif; font-weight: 700; }
 .mono { display: grid; place-items: center; width: 44px; height: 44px; background: var(--forest); color: var(--bamboo); font-weight: 700; letter-spacing: .04em; border-radius: 10px 10px 16px 16px; box-shadow: 0 5px 12px rgba(30,59,44,.16); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-text small { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: .75rem; color: var(--muted); }
- .institution-logos { display: flex; align-items: center; gap: .35rem; }
- .institution-logos img { width: auto; height: 48px; object-fit: contain; }
- .institution-logos img:first-child { height: 44px; }
-.menu { display: flex; align-items: center; gap: .35rem; }
+ .institution-logos { display: flex; align-items: center; gap: .25rem; flex-shrink: 0; }
+ .institution-logos img { width: auto; height: 42px; object-fit: contain; }
+ .institution-logos img:first-child { height: 38px; }
+ .brand-text { font-size: 1.15rem; color: var(--forest-2); }
+.menu { display: flex; align-items: center; gap: .35rem; margin-left: auto; }
 .menu a { display: inline-flex; align-items: center; min-height: 42px; padding: .55rem .85rem; text-decoration: none; color: var(--ink); font-weight: 600; font-size: .9rem; line-height: 1; border-radius: 8px; transition: background .2s, color .2s; }
 .menu a:hover { background: var(--mist); }
 .menu a.active { background: var(--forest); color: #fff; box-shadow: 0 4px 10px rgba(30,59,44,.16); }
@@ -74,7 +75,7 @@ a { color: var(--forest-2); }
 @media (max-width: 520px) {
   .nav-in { gap: .45rem; }
   .brand { gap: .45rem; }
-  .brand-text { font-size: .85rem; }
+  .brand-text { font-size: .9rem; }
   .brand-text small { font-size: .62rem; }
   .mono { width: 36px; height: 36px; }
   .institution-logos { gap: .15rem; }
