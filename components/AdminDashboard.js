@@ -33,17 +33,26 @@ export default function AdminDashboard() {
     async function loadAdmin() {
       try {
         const supabase = createClient();
-        const { data: { user: currentUser }, error: userError } = await supabase.auth.getUser();
+        const { data: { session }, error: userError } = await supabase.auth.getSession();
+        const currentUser = session?.user;
         if (userError || !currentUser) {
           window.location.assign("/admin/login");
           return;
         }
 
-        const { data: currentProfile, error: profileError } = await supabase
-          .from("profiles")
-          .select("full_name, role")
-          .eq("id", currentUser.id)
-          .single();
+        const [profileResult, contentResult] = await Promise.all([
+          supabase
+            .from("profiles")
+            .select("full_name, role")
+            .eq("id", currentUser.id)
+            .single(),
+          supabase
+            .from("site_content")
+            .select("key, value")
+            .in("key", ["site_summary", "stats", "vision"]),
+        ]);
+        const { data: currentProfile, error: profileError } = profileResult;
+        const { data: savedContent, error: contentError } = contentResult;
 
         if (profileError || currentProfile?.role !== "admin") {
           await supabase.auth.signOut();
@@ -55,11 +64,6 @@ export default function AdminDashboard() {
           setUser(currentUser);
           setProfile(currentProfile);
           setStatus({ loading: false, error: "" });
-          const { data: savedContent, error: contentError } = await supabase
-            .from("site_content")
-            .select("key, value")
-            .in("key", ["site_summary", "stats", "vision"]);
-
           if (contentError) {
             setSaveStatus({ ok: false, teks: `Konten bawaan digunakan: ${contentError.message}` });
           } else if (savedContent?.length) {
@@ -158,7 +162,7 @@ export default function AdminDashboard() {
     }
   }
 
-  if (status.loading) return <section className="admin-card"><p>Memuat dashboard...</p></section>;
+  if (status.loading) return null;
   if (status.error) return <section className="admin-card"><p role="alert" className="note err">{status.error}</p></section>;
 
   return (
