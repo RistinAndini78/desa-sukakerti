@@ -2,7 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { statistik as defaultStatistik, visi as defaultVisi, desa as defaultDesa } from "@/lib/data";
+import {
+  statistik as defaultStatistik,
+  visi as defaultVisi,
+  desa as defaultDesa,
+  wilayah,
+  perangkat,
+  bpd,
+  demografi,
+  wisata,
+} from "@/lib/data";
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -66,39 +75,39 @@ export default function AdminDashboard() {
     return () => { active = false; };
   }, []);
 
+  function ubahStat(index, field, value) {
+    setContent((current) => ({
+      ...current,
+      stats: current.stats.map((stat, statIndex) => (
+        statIndex === index ? { ...stat, [field]: value } : stat
+      )),
+    }));
+  }
+
+  async function simpan(event) {
+    event.preventDefault();
+    setSaveStatus(null);
+    try {
+      const supabase = createClient();
+      const rows = Object.entries(content).map(([key, value]) => ({
+        key,
+        value,
+        updated_by: user.id,
+      }));
+      const { error } = await supabase.from("site_content").upsert(rows);
+      if (error) throw error;
+      setSaveStatus({ ok: true, teks: "Perubahan berhasil disimpan." });
+    } catch (error) {
+      setSaveStatus({ ok: false, teks: error.message });
+    }
+  }
+
   async function keluar() {
     const supabase = createClient();
     const { error } = await supabase.auth.signOut();
     if (error) {
       setStatus({ loading: false, error: error.message });
       return;
-    }
-
-    function ubahStat(index, field, value) {
-      setContent((current) => ({
-        ...current,
-        stats: current.stats.map((stat, statIndex) => (
-          statIndex === index ? { ...stat, [field]: value } : stat
-        )),
-      }));
-    }
-
-    async function simpan(event) {
-      event.preventDefault();
-      setSaveStatus(null);
-      try {
-        const supabase = createClient();
-        const rows = Object.entries(content).map(([key, value]) => ({
-          key,
-          value,
-          updated_by: user.id,
-        }));
-        const { error } = await supabase.from("site_content").upsert(rows);
-        if (error) throw error;
-        setSaveStatus({ ok: true, teks: "Perubahan berhasil disimpan." });
-      } catch (error) {
-        setSaveStatus({ ok: false, teks: error.message });
-      }
     }
     window.location.assign("/admin/login");
   }
@@ -119,15 +128,32 @@ export default function AdminDashboard() {
       <div className="admin-grid">
         <article className="admin-panel">
           <span className="service-icon">01</span>
-          <h2>Konten website</h2>
-          <p>Kelola statistik, profil, potensi, wisata, dan informasi publik Desa Sukakerti.</p>
-          <p className="admin-muted">Struktur tabel konten siap digunakan di Supabase.</p>
+          <h2>Profil wilayah</h2>
+          <p>Ketinggian: <strong>{wilayah.ketinggian}</strong></p>
+          <p>Luas: <strong>{wilayah.luas}</strong></p>
+          <p>Pembagian: <strong>{wilayah.pembagian}</strong></p>
+          <p className="admin-muted">Batas utara: {wilayah.batas[0].desa} · Selatan: {wilayah.batas[1].desa}</p>
         </article>
         <article className="admin-panel">
           <span className="service-icon">02</span>
-          <h2>Data layanan</h2>
-          <p>Kelola permohonan surat dan aspirasi warga setelah tabel layanan diaktifkan.</p>
-          <p className="admin-muted">Akses hanya tersedia untuk akun dengan role admin.</p>
+          <h2>Demografi</h2>
+          <p>Total penduduk: <strong>{demografi.total.toLocaleString("id-ID")}</strong> jiwa</p>
+          <p>Laki-laki: {demografi.laki.toLocaleString("id-ID")} · Perempuan: {demografi.perempuan.toLocaleString("id-ID")}</p>
+          <p>KK: <strong>{demografi.kk.toLocaleString("id-ID")}</strong></p>
+          <p className="admin-muted">Sanitasi layak: {demografi.sanitasiLayak} KK · Kurang mampu: {demografi.kurangMampu} KK</p>
+        </article>
+        <article className="admin-panel admin-panel-wide">
+          <span className="service-icon">03</span>
+          <h2>Perangkat desa</h2>
+          <div className="admin-people">
+            {perangkat.map((orang) => <span key={orang.jabatan}><strong>{orang.jabatan}</strong>{orang.nama}</span>)}
+          </div>
+        </article>
+        <article className="admin-panel admin-panel-wide">
+          <span className="service-icon">04</span>
+          <h2>BPD dan wisata</h2>
+          <p>{bpd.pengantar}</p>
+          <p className="admin-muted">Destinasi terdaftar: {wisata.map((tempat) => tempat.nama).join(", ")}.</p>
         </article>
       </div>
       <form className="admin-editor" onSubmit={simpan}>
