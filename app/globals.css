@@ -200,17 +200,25 @@ a { color: var(--forest-2); }
 .meter small { color: var(--muted); }
 
 /* wisata */
-.spot { display: grid; grid-template-columns: minmax(230px, .7fr) 1.8fr; gap: clamp(2rem, 6vw, 5rem); padding: 3rem 0; border-top: 1px solid var(--line); }
+.spot { display: grid; grid-template-columns: minmax(270px, 1fr) minmax(220px, .72fr); gap: 1rem clamp(1.5rem, 4vw, 3.5rem); align-items: start; padding: 3rem 0; }
 .spot:first-child { border-top: 0; }
-.spot-head { position: relative; padding-right: 2rem; }
-.spot-head h2 { max-width: 300px; margin-top: .2rem; font-size: clamp(1.7rem, 3vw, 2.3rem); }
-.spot-number { position: absolute; top: .1rem; right: 0; color: var(--line); font-size: 2rem; font-weight: 700; line-height: 1; }
+.spot-head { grid-column: 1 / -1; }
+.spot-head h2 { margin-top: .2rem; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.spot-number { display: inline-block; margin-right: .25rem; color: var(--aren); font-size: .75em; font-weight: 700; vertical-align: .12em; }
 .spot-copy { max-width: 760px; }
 .spot-copy { margin: 0; color: var(--muted); line-height: 1.8; }
+.spot-image-wrap { width: min(100%, 560px); overflow: hidden; aspect-ratio: 16 / 10; border-radius: 14px; background: var(--mist); }
+.spot-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.spot-detail { min-width: 0; }
+.spot-address, .spot-coordinate { margin: .9rem 0 0; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+.spot-address strong, .spot-coordinate strong { color: var(--forest); }
+.spot-map { display: inline-block; margin-top: 1rem; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 @media (max-width: 800px) {
-  .spot { grid-template-columns: 1fr; gap: 1rem; padding: 2.2rem 0; }
-  .spot-head { padding-right: 2.5rem; }
-  .spot-head h2 { max-width: 100%; }
+  .spot { grid-template-columns: minmax(240px, 1fr) 1fr; gap: 1.2rem; padding: 2.2rem 0; }
+}
+@media (max-width: 560px) {
+  .spot { grid-template-columns: 1fr; }
+  .spot-image-wrap { grid-row: auto; }
 }
 
 /* umkm */
