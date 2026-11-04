@@ -14,6 +14,10 @@ export default function Navbar() {
   return (
     <header className="nav">
       <div className="container nav-in">
+        <div className="institution-logos" aria-label="Logo pendukung">
+          <Image src="/logo-subang.png" alt="Logo Kabupaten Subang" width={52} height={64} />
+          <Image src="/logo-kelompok.png" alt="Logo kelompok" width={64} height={64} />
+        </div>
         <Link href="/" className="brand" onClick={() => setOpen(false)}>
           <span className="mono" aria-hidden="true">SK</span>
           <span className="brand-text">
@@ -21,10 +25,6 @@ export default function Navbar() {
             <small>Cisalak, Subang</small>
           </span>
         </Link>
-        <div className="institution-logos" aria-label="Logo pendukung">
-          <Image src="/logo-subang.png" alt="Logo Kabupaten Subang" width={52} height={64} />
-          <Image src="/logo-kelompok.png" alt="Logo kelompok" width={64} height={64} />
-        </div>
         <button
           className="nav-toggle"
           aria-expanded={open}

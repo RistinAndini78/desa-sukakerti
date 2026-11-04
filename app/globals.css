@@ -42,7 +42,7 @@ a { color: var(--forest-2); }
 .mono { display: grid; place-items: center; width: 44px; height: 44px; background: var(--forest); color: var(--bamboo); font-weight: 700; letter-spacing: .04em; border-radius: 10px 10px 16px 16px; box-shadow: 0 5px 12px rgba(30,59,44,.16); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-text small { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: .75rem; color: var(--muted); }
- .institution-logos { display: flex; align-items: center; gap: .35rem; margin-left: auto; }
+ .institution-logos { display: flex; align-items: center; gap: .35rem; }
  .institution-logos img { width: auto; height: 48px; object-fit: contain; }
  .institution-logos img:first-child { height: 44px; }
 .menu { display: flex; align-items: center; gap: .35rem; }
@@ -60,7 +60,7 @@ a { color: var(--forest-2); }
 .admin-link { background: var(--aren) !important; color: #fff !important; box-shadow: 0 4px 10px rgba(168,100,31,.18); }
 .nav-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .9rem; font: inherit; font-weight: 700; color: var(--forest); }
 @media (max-width: 900px) {
-  .institution-logos { margin-left: auto; margin-right: .6rem; }
+  .institution-logos { margin-right: .2rem; }
   .institution-logos img { height: 38px; }
   .institution-logos img:first-child { height: 35px; }
   .nav-toggle { display: block; }
@@ -77,7 +77,7 @@ a { color: var(--forest-2); }
   .brand-text { font-size: .85rem; }
   .brand-text small { font-size: .62rem; }
   .mono { width: 36px; height: 36px; }
-  .institution-logos { gap: .15rem; margin-right: .2rem; }
+  .institution-logos { gap: .15rem; }
   .institution-logos img { height: 31px; }
   .institution-logos img:first-child { height: 29px; }
 }
