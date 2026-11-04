@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { createClient, hasSupabaseConfig } from "@/lib/supabase/client";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -15,6 +15,9 @@ export default function AdminLogin() {
     setStatus(null);
 
     try {
+      if (!hasSupabaseConfig()) {
+        throw new Error("Login admin belum terhubung ke Supabase. Tambahkan NEXT_PUBLIC_SUPABASE_URL dan NEXT_PUBLIC_SUPABASE_ANON_KEY di Vercel.");
+      }
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {

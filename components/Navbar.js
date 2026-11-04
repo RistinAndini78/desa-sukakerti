@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { menu } from "@/lib/data";
-import { createClient } from "@/lib/supabase/client";
+import { createClient, hasSupabaseConfig } from "@/lib/supabase/client";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -20,26 +20,33 @@ export default function Navbar() {
       setAdminUser(null);
       return;
     }
+    if (!hasSupabaseConfig()) return;
 
     let active = true;
-    createClient().auth.getUser().then(({ data, error }) => {
-      if (error) {
-        console.error("Gagal memeriksa sesi admin:", error);
-        return;
-      }
-      if (active) setAdminUser(data.user);
-    });
+    createClient().auth.getUser()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Gagal memeriksa sesi admin:", error);
+          return;
+        }
+        if (active) setAdminUser(data.user);
+      })
+      .catch((error) => console.error("Gagal membuat sesi admin:", error));
 
     return () => { active = false; };
   }, [isAdminArea]);
 
   async function keluar() {
-    const { error } = await createClient().auth.signOut();
-    if (error) {
-      window.alert(`Gagal keluar: ${error.message}`);
-      return;
+    try {
+      const { error } = await createClient().auth.signOut();
+      if (error) {
+        window.alert(`Gagal keluar: ${error.message}`);
+        return;
+      }
+      window.location.assign("/admin/login");
+    } catch (error) {
+      window.alert(error.message);
     }
-    window.location.assign("/admin/login");
   }
   return (
     <header className="nav">
