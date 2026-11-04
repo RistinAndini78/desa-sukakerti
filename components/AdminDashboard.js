@@ -109,56 +109,56 @@ export default function AdminDashboard() {
     } catch (error) {
       setSaveStatus({ ok: false, teks: error.message });
     }
+  }
 
-    function mulaiEdit(row) {
-      setEditingKey(row.key);
-      setCrudForm({ key: row.key, value: JSON.stringify(row.value, null, 2) });
-    }
+  function mulaiEdit(row) {
+    setEditingKey(row.key);
+    setCrudForm({ key: row.key, value: JSON.stringify(row.value, null, 2) });
+  }
 
-    function batalEdit() {
-      setEditingKey(null);
-      setCrudForm({ key: "", value: "{}" });
-    }
+  function batalEdit() {
+    setEditingKey(null);
+    setCrudForm({ key: "", value: "{}" });
+  }
 
-    async function simpanCrud(event) {
-      event.preventDefault();
-      setSaveStatus(null);
-      try {
-        const key = crudForm.key.trim();
-        if (!key) throw new Error("Key konten wajib diisi.");
-        const value = JSON.parse(crudForm.value);
-        const supabase = createClient();
-        const { data, error } = await supabase
-          .from("site_content")
-          .upsert({ key, value, updated_by: user.id }, { onConflict: "key" })
-          .select("key, value")
-          .single();
-        if (error) throw error;
-        setContentRows((rows) => [
-          ...rows.filter((row) => row.key !== key && row.key !== editingKey),
-          data,
-        ]);
-        if (key === "site_summary" || key === "stats" || key === "vision") {
-          setContent((current) => ({ ...current, [key]: value }));
-        }
-        setSaveStatus({ ok: true, teks: "Data konten berhasil disimpan." });
-        batalEdit();
-      } catch (error) {
-        setSaveStatus({ ok: false, teks: `Gagal menyimpan: ${error.message}` });
+  async function simpanCrud(event) {
+    event.preventDefault();
+    setSaveStatus(null);
+    try {
+      const key = crudForm.key.trim();
+      if (!key) throw new Error("Key konten wajib diisi.");
+      const value = JSON.parse(crudForm.value);
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from("site_content")
+        .upsert({ key, value, updated_by: user.id }, { onConflict: "key" })
+        .select("key, value")
+        .single();
+      if (error) throw error;
+      setContentRows((rows) => [
+        ...rows.filter((row) => row.key !== key && row.key !== editingKey),
+        data,
+      ]);
+      if (key === "site_summary" || key === "stats" || key === "vision") {
+        setContent((current) => ({ ...current, [key]: value }));
       }
+      setSaveStatus({ ok: true, teks: "Data konten berhasil disimpan." });
+      batalEdit();
+    } catch (error) {
+      setSaveStatus({ ok: false, teks: `Gagal menyimpan: ${error.message}` });
     }
+  }
 
-    async function hapusCrud(key) {
-      if (!window.confirm(`Hapus konten "${key}"?`)) return;
-      setSaveStatus(null);
-      try {
-        const { error } = await createClient().from("site_content").delete().eq("key", key);
-        if (error) throw error;
-        setContentRows((rows) => rows.filter((row) => row.key !== key));
-        setSaveStatus({ ok: true, teks: "Data konten berhasil dihapus." });
-      } catch (error) {
-        setSaveStatus({ ok: false, teks: `Gagal menghapus: ${error.message}` });
-      }
+  async function hapusCrud(key) {
+    if (!window.confirm(`Hapus konten "${key}"?`)) return;
+    setSaveStatus(null);
+    try {
+      const { error } = await createClient().from("site_content").delete().eq("key", key);
+      if (error) throw error;
+      setContentRows((rows) => rows.filter((row) => row.key !== key));
+      setSaveStatus({ ok: true, teks: "Data konten berhasil dihapus." });
+    } catch (error) {
+      setSaveStatus({ ok: false, teks: `Gagal menghapus: ${error.message}` });
     }
   }
 
