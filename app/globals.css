@@ -42,6 +42,9 @@ a { color: var(--forest-2); }
 .mono { display: grid; place-items: center; width: 44px; height: 44px; background: var(--forest); color: var(--bamboo); font-weight: 700; letter-spacing: .04em; border-radius: 10px 10px 16px 16px; box-shadow: 0 5px 12px rgba(30,59,44,.16); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-text small { font-family: "Poppins", system-ui, sans-serif; font-weight: 600; font-size: .75rem; color: var(--muted); }
+ .institution-logos { display: flex; align-items: center; gap: .35rem; margin-left: auto; }
+ .institution-logos img { width: auto; height: 48px; object-fit: contain; }
+ .institution-logos img:first-child { height: 44px; }
 .menu { display: flex; align-items: center; gap: .35rem; }
 .menu a { display: inline-flex; align-items: center; min-height: 42px; padding: .55rem .85rem; text-decoration: none; color: var(--ink); font-weight: 600; font-size: .9rem; line-height: 1; border-radius: 8px; transition: background .2s, color .2s; }
 .menu a:hover { background: var(--mist); }
@@ -57,6 +60,9 @@ a { color: var(--forest-2); }
 .admin-link { background: var(--aren) !important; color: #fff !important; box-shadow: 0 4px 10px rgba(168,100,31,.18); }
 .nav-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .9rem; font: inherit; font-weight: 700; color: var(--forest); }
 @media (max-width: 900px) {
+  .institution-logos { margin-left: auto; margin-right: .6rem; }
+  .institution-logos img { height: 38px; }
+  .institution-logos img:first-child { height: 35px; }
   .nav-toggle { display: block; }
   .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--paper); border-bottom: 1px solid var(--line); padding: .5rem 4%; }
   .menu.open { display: flex; }
@@ -64,6 +70,16 @@ a { color: var(--forest-2); }
   .menu-more-toggle { width: 100%; min-height: 44px; padding: .8rem .5rem; text-align: left; }
   .menu-more-list { position: static; min-width: 0; border: 0; box-shadow: none; background: var(--mist); margin: 0 .5rem .4rem; }
   .admin-link { text-align: center; margin-top: .3rem; }
+}
+@media (max-width: 520px) {
+  .nav-in { gap: .45rem; }
+  .brand { gap: .45rem; }
+  .brand-text { font-size: .85rem; }
+  .brand-text small { font-size: .62rem; }
+  .mono { width: 36px; height: 36px; }
+  .institution-logos { gap: .15rem; margin-right: .2rem; }
+  .institution-logos img { height: 31px; }
+  .institution-logos img:first-child { height: 29px; }
 }
 
 /* hero */
@@ -257,6 +273,9 @@ a { color: var(--forest-2); }
 .footer li { margin-bottom: .3rem; }
 .brand-foot { color: #fff; margin-bottom: .8rem; }
 .brand-foot .mono { background: var(--bamboo); color: var(--ijuk); }
+.footer-logos { display: flex; align-items: center; gap: .6rem; margin: .2rem 0 1rem; }
+.footer-logos img { width: auto; height: 58px; object-fit: contain; }
+.footer-logos img:first-child { height: 52px; }
 .foot-bottom { margin-top: 2rem; padding: 1.2rem 0; border-top: 1px solid #44392c; font-size: .9rem; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

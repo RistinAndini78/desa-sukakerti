@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { menu } from "@/lib/data";
@@ -20,6 +21,10 @@ export default function Navbar() {
             <small>Cisalak, Subang</small>
           </span>
         </Link>
+        <div className="institution-logos" aria-label="Logo pendukung">
+          <Image src="/logo-subang.png" alt="Logo Kabupaten Subang" width={52} height={64} />
+          <Image src="/logo-kelompok.png" alt="Logo kelompok" width={64} height={64} />
+        </div>
         <button
           className="nav-toggle"
           aria-expanded={open}
