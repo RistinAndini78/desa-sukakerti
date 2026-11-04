@@ -11,11 +11,12 @@ export default function Pariwisata() {
         <div className="container">
           {wisata.map((w) => (
             <article className="spot" key={w.slug} id={w.slug}>
-              <div>
+              <div className="spot-head">
                 <span className="pill">{w.kategori}</span>
                 <h2>{w.nama}</h2>
+                <span className="spot-number">{String(wisata.indexOf(w) + 1).padStart(2, "0")}</span>
               </div>
-              <p>{w.teks}</p>
+              <p className="spot-copy">{w.teks}</p>
             </article>
           ))}
         </div>

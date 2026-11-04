@@ -178,10 +178,18 @@ a { color: var(--forest-2); }
 .meter small { color: var(--muted); }
 
 /* wisata */
-.spot { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 2.2rem 0; border-top: 1px solid var(--line); }
+.spot { display: grid; grid-template-columns: minmax(230px, .7fr) 1.8fr; gap: clamp(2rem, 6vw, 5rem); padding: 3rem 0; border-top: 1px solid var(--line); }
 .spot:first-child { border-top: 0; }
-@media (max-width: 800px) { .spot { grid-template-columns: 1fr; gap: .5rem; } }
-.spot p { max-width: 75ch; }
+.spot-head { position: relative; padding-right: 2rem; }
+.spot-head h2 { max-width: 300px; margin-top: .2rem; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.spot-number { position: absolute; top: .1rem; right: 0; color: var(--line); font-size: 2rem; font-weight: 700; line-height: 1; }
+.spot-copy { max-width: 760px; }
+.spot-copy { margin: 0; color: var(--muted); line-height: 1.8; }
+@media (max-width: 800px) {
+  .spot { grid-template-columns: 1fr; gap: 1rem; padding: 2.2rem 0; }
+  .spot-head { padding-right: 2.5rem; }
+  .spot-head h2 { max-width: 100%; }
+}
 
 /* umkm */
 .umkm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
