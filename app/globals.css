@@ -14,6 +14,7 @@
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html, body { min-height: 100%; }
 body {
   margin: 0;
   font-family: "Poppins", system-ui, sans-serif;
@@ -29,6 +30,8 @@ h3 { font-size: 1.2rem; }
 p { margin: 0 0 1rem; max-width: 70ch; }
 a { color: var(--forest-2); }
 :focus-visible { outline: 3px solid var(--aren); outline-offset: 2px; }
+.nav a:focus-visible, .nav button:focus-visible { outline: 2px solid var(--forest-2); outline-offset: 1px; }
+.nav a.active:focus-visible { outline-color: var(--forest); }
 .container { width: min(1120px, 92%); margin: 0 auto; }
 .narrow { width: min(720px, 92%); }
 
