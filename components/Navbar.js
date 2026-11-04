@@ -2,16 +2,45 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { menu } from "@/lib/data";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Navbar() {
   const pathname = usePathname();
   const isAdminArea = pathname.startsWith("/admin");
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [adminUser, setAdminUser] = useState(null);
   const primaryMenu = menu.filter((item) => ["/", "/profil", "/potensi"].includes(item.href));
   const secondaryMenu = menu.filter((item) => !primaryMenu.some((primary) => primary.href === item.href));
+
+  useEffect(() => {
+    if (!isAdminArea) {
+      setAdminUser(null);
+      return;
+    }
+
+    let active = true;
+    createClient().auth.getUser().then(({ data, error }) => {
+      if (error) {
+        console.error("Gagal memeriksa sesi admin:", error);
+        return;
+      }
+      if (active) setAdminUser(data.user);
+    });
+
+    return () => { active = false; };
+  }, [isAdminArea]);
+
+  async function keluar() {
+    const { error } = await createClient().auth.signOut();
+    if (error) {
+      window.alert(`Gagal keluar: ${error.message}`);
+      return;
+    }
+    window.location.assign("/admin/login");
+  }
   return (
     <header className="nav">
       <div className="container nav-in">
@@ -41,6 +70,9 @@ export default function Navbar() {
                 <Link href="/admin" onClick={() => setOpen(false)}>Dashboard</Link>
               )}
               <Link href="/" className="admin-nav-public" onClick={() => setOpen(false)}>Lihat situs</Link>
+              {adminUser && pathname === "/admin" && (
+                <button type="button" className="logout-link" onClick={keluar}>Keluar</button>
+              )}
             </>
           ) : (
             <>

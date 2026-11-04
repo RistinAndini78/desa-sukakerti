@@ -61,6 +61,8 @@ a { color: var(--forest-2); }
 .admin-link { background: var(--aren) !important; color: #fff !important; box-shadow: 0 4px 10px rgba(168,100,31,.18); }
 .admin-nav-label { color: var(--forest-2); font-size: .85rem; font-weight: 700; padding: .55rem .7rem; border-right: 1px solid var(--line); }
 .admin-nav-public { border: 1px solid var(--line); }
+.logout-link { min-height: 42px; padding: .55rem .85rem; border: 0; border-radius: 8px; background: #b42318; color: #fff; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; }
+.logout-link:hover { background: #8f1d14; }
 .nav-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .9rem; font: inherit; font-weight: 700; color: var(--forest); }
 @media (max-width: 900px) {
   .institution-logos { margin-right: .2rem; }

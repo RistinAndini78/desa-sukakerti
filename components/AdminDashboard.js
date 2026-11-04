@@ -102,16 +102,6 @@ export default function AdminDashboard() {
     }
   }
 
-  async function keluar() {
-    const supabase = createClient();
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      setStatus({ loading: false, error: error.message });
-      return;
-    }
-    window.location.assign("/admin/login");
-  }
-
   if (status.loading) return <section className="admin-card"><p>Memuat dashboard...</p></section>;
   if (status.error) return <section className="admin-card"><p role="alert" className="note err">{status.error}</p></section>;
 
@@ -123,7 +113,6 @@ export default function AdminDashboard() {
           <h1>Selamat datang, {profile.full_name || user.email}</h1>
           <p className="lead">Role aktif: <strong>{profile.role}</strong></p>
         </div>
-        <button className="btn ghost dark-ghost" onClick={keluar}>Keluar</button>
       </div>
       <div className="admin-grid">
         <article className="admin-panel">
