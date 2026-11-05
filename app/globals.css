@@ -233,6 +233,7 @@ a { color: var(--forest-2); }
 
 /* form */
 .form { display: grid; gap: 1rem; margin-top: 1rem; }
+.service-note { padding: .9rem 1rem; margin: 1rem 0 0; border-left: 4px solid var(--aren); background: #fff8eb; color: var(--muted); font-size: .95rem; }
 .form label { display: grid; gap: .3rem; font-weight: 700; font-size: .95rem; }
 .form input, .form select, .form textarea { font: inherit; font-weight: 400; padding: .7rem .8rem; border: 1px solid #aab8a8; border-radius: 6px; background: #fff; color: var(--ink); }
 .form button { justify-self: start; }

@@ -6,7 +6,7 @@ export const metadata = { title: "Layanan & Aspirasi | Desa Sukakerti" };
 export default function Aspirasi() {
   return (
     <>
-      <PageHead judul="Layanan & aspirasi" deskripsi="Pengaduan masyarakat dan layanan administrasi online Desa Sukakerti." />
+      <PageHead judul="Layanan & aspirasi" deskripsi="Ajukan layanan administrasi dan sampaikan aspirasi kepada Pemerintah Desa Sukakerti melalui WhatsApp." />
       <AspirasiClient />
     </>
   );

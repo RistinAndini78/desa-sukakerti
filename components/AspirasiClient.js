@@ -39,7 +39,7 @@ export default function AspirasiClient() {
       <section className="section">
         <div className="container">
           <h2>Layanan surat online</h2>
-          <p className="lead">Pilih jenis surat, lalu isi data pada formulir di bawah.</p>
+          <p className="lead">Pilih jenis surat, lalu isi data pada formulir. Pengajuan akan diteruskan ke WhatsApp admin desa untuk diperiksa dan diproses secara manual.</p>
           <div className="grid3">
             {layananSurat.map((s) => (
               <button key={s.kode} className="surat" onClick={() => pilihSurat(s.nama)}>
@@ -54,6 +54,7 @@ export default function AspirasiClient() {
       <section className="section alt" id="form-layanan">
         <div className="container narrow">
           <h2>Sampaikan pesan Anda</h2>
+          <p className="service-note"><strong>Layanan gratis.</strong> Setelah formulir dikirim, WhatsApp akan terbuka dengan pesan yang sudah disiapkan. Tekan tombol kirim di WhatsApp agar pengajuan diterima admin.</p>
           <form onSubmit={kirim} className="form">
             <label>
               Jenis layanan
@@ -73,7 +74,7 @@ export default function AspirasiClient() {
               {jenis === jenisList[0] ? "Isi aspirasi" : "Keperluan dan data pendukung"}
               <textarea required rows={5} value={pesan} onChange={(e) => setPesan(e.target.value)} />
             </label>
-            <button type="submit" className="btn">Kirim lewat WhatsApp</button>
+            <button type="submit" className="btn">Lanjutkan ke WhatsApp</button>
             {status && (
               <p role="status" className={status.ok ? "note ok" : "note err"}>{status.teks}</p>
             )}
