@@ -58,16 +58,18 @@ export default function Navbar() {
         <Link href="/" className="brand" onClick={() => setOpen(false)}>
           <span className="brand-text">
             Desa Sukakerti
-            <small>Cisalak, Subang</small>
           </span>
         </Link>
         <button
           className="nav-toggle"
           aria-expanded={open}
           aria-controls="menu-utama"
+          aria-label={open ? "Tutup menu" : "Buka menu"}
           onClick={() => setOpen(!open)}
         >
-          {open ? "Tutup" : "Menu"}
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
         </button>
         <nav id="menu-utama" className={"menu" + (open ? " open" : "")} aria-label={isAdminArea ? "Menu admin" : "Menu utama"}>
           {isAdminArea ? (
