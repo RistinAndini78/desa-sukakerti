@@ -1,4 +1,8 @@
-export default function HeroArt() {
+export default function HeroArt({ image, alt = "" }) {
+  if (image) {
+    return <img src={image} alt={alt} className="heroart heroart-photo" />;
+  }
+
   return (
     <svg viewBox="0 0 480 360" role="img" aria-label="Ilustrasi rumah panggung beratap ijuk di perbukitan" className="heroart">
       <circle cx="372" cy="78" r="34" fill="#D8C58C" />

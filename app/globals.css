@@ -13,6 +13,7 @@
   --muted: #55645a;
 }
 * { box-sizing: border-box; }
+img { max-width: 100%; }
 html { scroll-behavior: smooth; }
 html, body { min-height: 100%; }
 body {
@@ -98,6 +99,7 @@ a { color: var(--forest-2); }
 .hero .kicker { display: inline-block; color: #fff; background: var(--aren); padding: .3rem .8rem; border-radius: 99px; font-size: .85rem; font-weight: 700; margin-bottom: 1rem; }
 .hero p { color: #cfdac9; }
 .heroart { width: 100%; height: auto; display: block; }
+.heroart-photo { aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
 .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
 .btn { display: inline-block; background: var(--bamboo); color: var(--ijuk); border: 0; padding: .8rem 1.35rem; font: inherit; font-weight: 700; border-radius: 8px; text-decoration: none; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(30,59,44,.15); }
@@ -169,7 +171,7 @@ a { color: var(--forest-2); }
 /* tabel/daftar */
 .kv { display: grid; grid-template-columns: 1fr auto; border-top: 1px solid var(--line); }
 .kv div { padding: .7rem 0; border-bottom: 1px solid var(--line); }
-.kv div:nth-child(even) { text-align: right; font-weight: 700; color: var(--forest); }
+.kv > div > div:nth-child(even) { text-align: right; font-weight: 700; color: var(--forest); }
 .people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
 @media (max-width: 800px) { .people { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .people { grid-template-columns: 1fr; } }
@@ -292,6 +294,50 @@ a { color: var(--forest-2); }
   .admin-editor-heading, .admin-vision-editor { display: grid; grid-template-columns: 1fr; }
   .admin-stat-row { grid-template-columns: 1fr; gap: .7rem; }
 }
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .container, .narrow { width: min(100% - 2rem, 720px); }
+  .nav-in { min-height: 64px; }
+  .menu { padding: .5rem 1rem 1rem; }
+  .hero { padding-top: 3rem; }
+  .hero-text { padding-bottom: 1rem; }
+  .hero .kicker { font-size: .75rem; }
+  .hero h1 { font-size: clamp(2rem, 12vw, 3rem); }
+  .actions { flex-direction: column; align-items: stretch; }
+  .actions .btn { text-align: center; }
+  .stats { margin-top: -1rem; }
+  .stats-in { grid-template-columns: 1fr; }
+  .stat, .stat:nth-child(3), .stat:nth-child(n+3) { border-left: 0; border-top: 1px solid var(--line); }
+  .stat:first-child { border-top: 0; }
+  .stat { display: grid; grid-template-columns: 2.5rem 1fr; column-gap: .7rem; align-items: center; padding: .9rem 1rem; }
+  .stat-icon { grid-row: span 2; margin-bottom: 0; }
+  .stat b { font-size: 1.45rem; line-height: 1.2; }
+  .stat span:last-child { font-size: .85rem; }
+  .section { padding: 3.5rem 0; }
+  .pagehead { padding: 2rem 0 1.7rem; }
+  .pagehead h1 { font-size: clamp(1.8rem, 10vw, 2.6rem); }
+  .ikon-in { gap: 1.5rem; }
+  .ikon { border-left: 0; border-top: 5px solid var(--aren); padding: 1.2rem 0 0; }
+  .ikon-visual { padding: .6rem; border-radius: 12px; }
+  .visual-label { left: .8rem; bottom: .8rem; }
+  .visi-box, .admin-card, .admin-panel, .admin-editor { padding: 1.2rem; }
+  .grid3 { gap: .9rem; }
+  .layanan { padding: 1.2rem; }
+  .kv { grid-template-columns: minmax(0, 1fr) minmax(0, auto); gap: .75rem; }
+  .kv div { overflow-wrap: anywhere; }
+  .umkm { padding: 1.1rem; }
+  .umkm dl { grid-template-columns: 4.5rem minmax(0, 1fr); gap: .25rem .7rem; }
+  .umkm dd { overflow-wrap: anywhere; }
+  .bar > div { font-size: .8rem; }
+  .legend, .meter-top { gap: .75rem; flex-wrap: wrap; }
+  .admin-topbar { align-items: stretch; }
+  .admin-topbar .btn { width: 100%; text-align: center; }
+  .admin-people { grid-template-columns: 1fr; }
+  .crud-actions .btn { flex: 1 1 100%; text-align: center; }
+  .foot-grid { gap: 1.5rem; }
+  .foot-bottom { padding-bottom: 1rem; }
+}
+
 .footer ul { list-style: none; padding: 0; margin: 0; }
 .footer li { margin-bottom: .3rem; }
 .brand-foot { color: #fff; margin-bottom: .8rem; }

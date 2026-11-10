@@ -16,7 +16,7 @@ export default function TokoKedai() {
               <div className="owner">Pemilik: {toko.pemilik || "Belum dicantumkan"}</div>
               <dl>
                 <dt>Alamat</dt><dd>{toko.alamat}</dd>
-                <dt>No. HP</dt><dd>{toko.kontak || "Belum dicantumkan"}</dd>
+                {toko.kontak && <><dt>No. HP</dt><dd>{toko.kontak}</dd></>}
               </dl>
               {toko.kontak && toko.kontak.length > 5 && (
                 <a className="btn dark" href={waLink(toko.kontak)} target="_blank" rel="noopener noreferrer">

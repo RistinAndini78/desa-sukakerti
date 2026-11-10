@@ -41,7 +41,7 @@ export default async function Beranda() {
       <section className="section">
         <div className="container ikon-in">
           <div className="ikon-visual" aria-hidden="true">
-            <HeroArt />
+            <HeroArt image="/Kampung Palasari.jpeg" alt="Kampung Palasari" />
             <span className="visual-label">Ikon Desa Sukakerti</span>
           </div>
           <div className="ikon">
