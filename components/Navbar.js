@@ -57,7 +57,7 @@ export default function Navbar() {
         </div>
         <Link href="/" className="brand" onClick={() => setOpen(false)}>
           <span className="brand-text">
-            Desa Sukakerti
+            SIPADES MAJU
           </span>
         </Link>
         <button
